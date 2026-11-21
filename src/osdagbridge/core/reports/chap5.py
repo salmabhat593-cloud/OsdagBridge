@@ -1865,7 +1865,7 @@ Clear Cover (IRC 112) & $\geq$ """ + _dkf(KEY_DD_MIN_COVER, nd=0) + r""" mm & To
 \hline
 \rowcolor{TableHeadBg}
 \textbf{Member / Check} & \textbf{Governing Load Combo} & \textbf{Demand} & \textbf{Capacity} & \textbf{UR} \\[6pt]
-\hline
+\hlinecg
 \endhead
 \hline
 \multicolumn{5}{r}{\footnotesize\textit{Continued on next page\dots}} \\
