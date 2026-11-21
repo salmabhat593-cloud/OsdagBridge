@@ -119,6 +119,7 @@ from osdagbridge.core.utils.common import (
 )
 
 from osdagbridge.core.reports.report_utils import _tex
+from .styles import LATEX_COLORS_PREAMBLE, TABLE_FORMATTING_PREAMBLE, COLOR_PALETTE
 from .executive_summary import executive_summary
 from .chap1 import ch1_project_info
 from .chap2 import ch2_input_parameters
@@ -155,8 +156,19 @@ def preamble(project_name, job_number, report_date, report_version='Rev 0'):
     return r"""
 \documentclass[12pt,a4paper]{report}
 
-% Packages
-\usepackage[a4paper, margin=1in]{geometry}
+% --- Centralized Geometry & Layout (styles.py) ---
+% Explicit footskip and bottom margin prevent table rows bleeding into the footer
+\usepackage[
+    a4paper,
+    top=2.5cm,
+    bottom=3.2cm,
+    left=2.3cm,
+    right=2.3cm,
+    headheight=26pt,
+    headsep=16pt,
+    footskip=34pt
+]{geometry}
+
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -192,71 +204,73 @@ def preamble(project_name, job_number, report_date, report_version='Rev 0'):
 
 \numberwithin{table}{chapter}
 \numberwithin{figure}{chapter}
-% Table layout and spacing: consistent padding, row height, and longtable pre/post skips
+
+% Table layout and spacing: consistent padding and row height from styles.py
 \setlength{\tabcolsep}{6pt}
-\renewcommand{\arraystretch}{1.12}
-\setlength{\LTpre}{0pt}
+\renewcommand{\arraystretch}{1.20}
+\setlength{\LTpre}{2pt}
 \setlength{\LTpost}{6pt}
-% Table rules (outline thickness) and small extra row height for clarity
 \setlength{\arrayrulewidth}{0.5pt}
-\setlength{\extrarowheight}{0.6pt}
+\setlength{\extrarowheight}{1.5pt}
 
 % Prevent tables from overflowing past the page bottom:
-% if fewer than 5 baseline-skips remain, break to the next page first.
 \BeforeBeginEnvironment{table}{\needspace{5\baselineskip}}
 \BeforeBeginEnvironment{longtable}{\needspace{5\baselineskip}}
 
-\definecolor{osdagGreen}{HTML}{91B014}
+% Centralized Color Definitions
+""" + LATEX_COLORS_PREAMBLE + r"""
+\definecolor{osdagGreen}{HTML}{2E7D32}
 
 \fancypagestyle{main}{
   \fancyhf{}
   \fancyhead[L]{""" + pn + r""" $|$ """ + jn + r"""}
   \fancyhead[R]{""" + rd + r""" $|$ """ + rv + r"""}
-  \fancyfoot[L]{Osdag $|$ FOSSEE $|$ Indian Institute of Technology Bombay}
-  \fancyfoot[R]{Page \thepage\ of \pageref{LastPage}}
+  \fancyfoot[L]{\footnotesize\textcolor{gray}{Osdag $|$ FOSSEE $|$ IIT Bombay}}
+  \fancyfoot[C]{\thepage}
+  \fancyfoot[R]{\footnotesize\textcolor{gray}{Page \thepage\ of \pageref{LastPage}}}
   \renewcommand{\headrule}{\color{osdagGreen}\hrule width\headwidth height 1pt \vspace{2pt}}
   \renewcommand{\footrule}{%
     \ifbool{hasSDonPage}{%
-      \vspace{-20pt}%
+      \vspace{-10pt}%
       \hbox to \headwidth{\textcolor{black}{\footnotesize\textit{* Software default value}}\hfil}%
-      \vspace{4pt}%
+      \vspace{2pt}%
     }{%
-      \vspace{-8pt}%
+      \vspace{-4pt}%
     }%
-    \color{osdagGreen}\hrule width\headwidth height 1pt \vspace{6pt}%
+    \color{osdagGreen}\hrule width\headwidth height 1pt \vspace{4pt}%
   }
 }
 \fancypagestyle{plain}{
   \fancyhf{}
   \fancyhead[L]{""" + pn + r""" $|$ """ + jn + r"""}
   \fancyhead[R]{""" + rd + r""" $|$ """ + rv + r"""}
-  \fancyfoot[L]{Osdag $|$ FOSSEE $|$ Indian Institute of Technology Bombay}
-  \fancyfoot[R]{Page \thepage\ of \pageref{LastPage}}
+  \fancyfoot[L]{\footnotesize\textcolor{gray}{Osdag $|$ FOSSEE $|$ IIT Bombay}}
+  \fancyfoot[C]{\thepage}
+  \fancyfoot[R]{\footnotesize\textcolor{gray}{Page \thepage\ of \pageref{LastPage}}}
   \renewcommand{\headrule}{\color{osdagGreen}\hrule width\headwidth height 1pt \vspace{2pt}}
   \renewcommand{\footrule}{%
     \ifbool{hasSDonPage}{%
-      \vspace{-20pt}%
+      \vspace{-10pt}%
       \hbox to \headwidth{\textcolor{black}{\footnotesize\textit{* Software default value}}\hfil}%
-      \vspace{4pt}%
+      \vspace{2pt}%
     }{%
-      \vspace{-8pt}%
+      \vspace{-4pt}%
     }%
-    \color{osdagGreen}\hrule width\headwidth height 1pt \vspace{6pt}%
+    \color{osdagGreen}\hrule width\headwidth height 1pt \vspace{4pt}%
   }
 }
 \fancypagestyle{firstpage}{
   \fancyhf{}
   \renewcommand{\headrulewidth}{0pt}
-  \fancyfoot[L]{Osdag $|$ FOSSEE $|$ Indian Institute of Technology Bombay}
-  \fancyfoot[R]{Page \thepage\ of \pageref{LastPage}}
-  \renewcommand{\footrule}{\vspace{-8pt}\color{osdagGreen}\hrule width\headwidth height 1pt \vspace{6pt}}
+  \fancyfoot[L]{\footnotesize\textcolor{gray}{Osdag $|$ FOSSEE $|$ IIT Bombay}}
+  \fancyfoot[C]{\thepage}
+  \fancyfoot[R]{\footnotesize\textcolor{gray}{Page \thepage\ of \pageref{LastPage}}}
+  \renewcommand{\footrule}{\vspace{-4pt}\color{osdagGreen}\hrule width\headwidth height 1pt \vspace{4pt}}
 }
 \pagestyle{main}
 \setstretch{1.15}
 
-% Custom Commands
-\newcommand{\placeholder}[1]{\textit{\textless #1\textgreater}}
-\newcommand{\todo}[1]{\colorbox{yellow}{TODO: #1}}
+% Custom Column types with explicit wrapping
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
@@ -275,7 +289,6 @@ def preamble(project_name, job_number, report_date, report_version='Rev 0'):
 
 \begin{document}
 """
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # TITLE PAGE
