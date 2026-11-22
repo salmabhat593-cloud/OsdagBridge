@@ -1,8 +1,19 @@
 
 \documentclass[12pt,a4paper]{report}
 
-% Packages
-\usepackage[a4paper, margin=1in]{geometry}
+% --- Centralized Geometry & Layout (styles.py) ---
+% Explicit footskip and bottom margin prevent table rows bleeding into the footer
+\usepackage[
+    a4paper,
+    top=2.5cm,
+    bottom=3.2cm,
+    left=2.3cm,
+    right=2.3cm,
+    headheight=26pt,
+    headsep=16pt,
+    footskip=34pt
+]{geometry}
+
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -38,71 +49,82 @@
 
 \numberwithin{table}{chapter}
 \numberwithin{figure}{chapter}
-% Table layout and spacing: consistent padding, row height, and longtable pre/post skips
+
+% Table layout and spacing: consistent padding and row height from styles.py
 \setlength{\tabcolsep}{6pt}
-\renewcommand{\arraystretch}{1.12}
-\setlength{\LTpre}{0pt}
+\renewcommand{\arraystretch}{1.20}
+\setlength{\LTpre}{2pt}
 \setlength{\LTpost}{6pt}
-% Table rules (outline thickness) and small extra row height for clarity
 \setlength{\arrayrulewidth}{0.5pt}
-\setlength{\extrarowheight}{0.6pt}
+\setlength{\extrarowheight}{1.5pt}
 
 % Prevent tables from overflowing past the page bottom:
-% if fewer than 5 baseline-skips remain, break to the next page first.
 \BeforeBeginEnvironment{table}{\needspace{5\baselineskip}}
 \BeforeBeginEnvironment{longtable}{\needspace{5\baselineskip}}
 
-\definecolor{osdagGreen}{HTML}{91B014}
+% Centralized Color Definitions
+
+\definecolor{OsdagPrimary}{HTML}{2E7D32}
+\definecolor{OsdagSecondary}{HTML}{1B5E20}
+\definecolor{OsdagAccent}{HTML}{8BC34A}
+\definecolor{TableHeadBg}{HTML}{E8F5E9}
+\definecolor{TableRowAlt}{HTML}{F9FBF9}
+\definecolor{TableBorder}{HTML}{BDBDBD}
+\definecolor{PassColor}{HTML}{2E7D32}
+\definecolor{FailColor}{HTML}{D32F2F}
+
+\definecolor{osdagGreen}{HTML}{2E7D32}
 
 \fancypagestyle{main}{
   \fancyhf{}
-  \fancyhead[L]{Osdag Bridge Design $|$ }
+  \fancyhead[L]{Design of 30m Span Composite I-Girder Bridge $|$ }
   \fancyhead[R]{2026-11-21 $|$ Rev 0}
-  \fancyfoot[L]{Osdag $|$ FOSSEE $|$ Indian Institute of Technology Bombay}
-  \fancyfoot[R]{Page \thepage\ of \pageref{LastPage}}
+  \fancyfoot[L]{\footnotesize\textcolor{gray}{Osdag $|$ FOSSEE $|$ IIT Bombay}}
+  \fancyfoot[C]{\thepage}
+  \fancyfoot[R]{\footnotesize\textcolor{gray}{Page \thepage\ of \pageref{LastPage}}}
   \renewcommand{\headrule}{\color{osdagGreen}\hrule width\headwidth height 1pt \vspace{2pt}}
   \renewcommand{\footrule}{%
     \ifbool{hasSDonPage}{%
-      \vspace{-20pt}%
+      \vspace{-10pt}%
       \hbox to \headwidth{\textcolor{black}{\footnotesize\textit{* Software default value}}\hfil}%
-      \vspace{4pt}%
+      \vspace{2pt}%
     }{%
-      \vspace{-8pt}%
+      \vspace{-4pt}%
     }%
-    \color{osdagGreen}\hrule width\headwidth height 1pt \vspace{6pt}%
+    \color{osdagGreen}\hrule width\headwidth height 1pt \vspace{4pt}%
   }
 }
 \fancypagestyle{plain}{
   \fancyhf{}
-  \fancyhead[L]{Osdag Bridge Design $|$ }
+  \fancyhead[L]{Design of 30m Span Composite I-Girder Bridge $|$ }
   \fancyhead[R]{2026-11-21 $|$ Rev 0}
-  \fancyfoot[L]{Osdag $|$ FOSSEE $|$ Indian Institute of Technology Bombay}
-  \fancyfoot[R]{Page \thepage\ of \pageref{LastPage}}
+  \fancyfoot[L]{\footnotesize\textcolor{gray}{Osdag $|$ FOSSEE $|$ IIT Bombay}}
+  \fancyfoot[C]{\thepage}
+  \fancyfoot[R]{\footnotesize\textcolor{gray}{Page \thepage\ of \pageref{LastPage}}}
   \renewcommand{\headrule}{\color{osdagGreen}\hrule width\headwidth height 1pt \vspace{2pt}}
   \renewcommand{\footrule}{%
     \ifbool{hasSDonPage}{%
-      \vspace{-20pt}%
+      \vspace{-10pt}%
       \hbox to \headwidth{\textcolor{black}{\footnotesize\textit{* Software default value}}\hfil}%
-      \vspace{4pt}%
+      \vspace{2pt}%
     }{%
-      \vspace{-8pt}%
+      \vspace{-4pt}%
     }%
-    \color{osdagGreen}\hrule width\headwidth height 1pt \vspace{6pt}%
+    \color{osdagGreen}\hrule width\headwidth height 1pt \vspace{4pt}%
   }
 }
 \fancypagestyle{firstpage}{
   \fancyhf{}
   \renewcommand{\headrulewidth}{0pt}
-  \fancyfoot[L]{Osdag $|$ FOSSEE $|$ Indian Institute of Technology Bombay}
-  \fancyfoot[R]{Page \thepage\ of \pageref{LastPage}}
-  \renewcommand{\footrule}{\vspace{-8pt}\color{osdagGreen}\hrule width\headwidth height 1pt \vspace{6pt}}
+  \fancyfoot[L]{\footnotesize\textcolor{gray}{Osdag $|$ FOSSEE $|$ IIT Bombay}}
+  \fancyfoot[C]{\thepage}
+  \fancyfoot[R]{\footnotesize\textcolor{gray}{Page \thepage\ of \pageref{LastPage}}}
+  \renewcommand{\footrule}{\vspace{-4pt}\color{osdagGreen}\hrule width\headwidth height 1pt \vspace{4pt}}
 }
 \pagestyle{main}
 \setstretch{1.15}
 
-% Custom Commands
-\newcommand{\placeholder}[1]{\textit{\textless #1\textgreater}}
-\newcommand{\todo}[1]{\colorbox{yellow}{TODO: #1}}
+% Custom Column types with explicit wrapping
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
@@ -143,13 +165,13 @@
 {\Large Design Report}\\[1.5cm]
 \begin{tabular}{|L{4cm}|L{10cm}|}
 \hline
-\textbf{Project Name} & Osdag Bridge Design \\
+\textbf{Project Name} & Design of 30m Span Composite I-Girder Bridge \\
 \hline
 \textbf{Project Location} & Kupwara, Jammu and Kashmir \\
 \hline
 \textbf{Author / Designer} & Salma Farooq \\
 \hline
-\textbf{Reviewer} &  \\
+\textbf{Reviewer} & 1.0 \\
 \hline
 \textbf{Organization} &  \\
 \hline
@@ -234,7 +256,7 @@ This section provides a concise summary of the bridge design, key inputs, govern
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/girder_top.png}
+\includegraphics[width=0.9\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/girder_top.png}
 \caption*{Figure 1 -- Overall Bridge Plan}
 \end{figure}
 
@@ -242,13 +264,13 @@ This section provides a concise summary of the bridge design, key inputs, govern
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/cross_section.png}
+\includegraphics[width=0.9\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/cross_section.png}
 \caption*{Figure 2 -- Typical Cross-Section (with girder, deck, barriers, footpath)}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/final_geometry.png}
+\includegraphics[width=0.9\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/final_geometry.png}
 \caption*{Figure 3 -- 3D View of Bridge Superstructure}
 \end{figure}
 
@@ -313,13 +335,13 @@ This section records all project metadata as entered by the designer.
 
 \begin{tabular}{|L{5.5cm}|L{8.5cm}|}
 \hline
-\textbf{Project Name} & Osdag Bridge Design \\
+\textbf{Project Name} & Design of 30m Span Composite I-Girder Bridge \\
 \hline
 \textbf{Project Location} & Kupwara, Jammu and Kashmir \\
 \hline
 \textbf{Designer} & Salma Farooq \\
 \hline
-\textbf{Reviewer} &  \\
+\textbf{Reviewer} & 1.0 \\
 \hline
 \textbf{Organization} &  \\
 \hline
@@ -396,7 +418,7 @@ This section documents all inputs provided to OsdagBridge. User-provided inputs 
 \hline
 \textnormal{Footpath} & None \\
 \hline
-\textnormal{Skew Angle (degrees)} &  (IRC 24 Cl. 504.8 limit: $\pm$15°) \\
+\textnormal{Skew Angle (degrees)} & 0° (IRC 24 Cl. 504.8 limit: $\pm$15°) \\
 \hline
 \end{tabular}
 \end{table}
@@ -631,158 +653,236 @@ G3 to G4 & E3M1 to E3M2 & Cross Bracing & IS 100 x 100 x 10 \\[6pt]
 
 
 \chapter{Loads and Load Combinations}
+This section summarizes all permanent, transient, and environmental loads applied to the bridge and the load combinations considered for structural analysis and design in accordance with IRC:6-2017.
 
-This section summarizes all loads applied to the bridge and the load combinations considered for analysis and design.
+\vspace{0.8em}
+\subsection{Permanent Dead Loads (DL \& SIDL)}
 
-\vspace{1em}
-\begin{longtable}{|L{5.5cm}|p{10.0cm}|}
-\caption{\textbf{Dead Load -- Self Weight}}
+\begin{longtable}{|L{6.0cm}|p{6.5cm}|C{2.5cm}|}
+\caption{\textbf{Dead Load --- Structural Self Weight}} \\
 \hline
-\textbf{parameter} & \textbf{value} \\
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Material / Description} & \textbf{Value / Unit} \\
 \hline
-\textnormal{Steel Self-Weight Applied} & 76.4 kN/m\textsuperscript{3} \\[6pt]
+\endfirsthead
+\multicolumn{3}{c}{\small\textit{Table continued from previous page}} \\
 \hline
-\textnormal{Concrete Deck Weight} & 24.5 kN/m\textsuperscript{3} \\[6pt]
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Material / Description} & \textbf{Value / Unit} \\
 \hline
-\textnormal{Self-Weight Factor} & 1.0 \\[6pt]
+\endhead
 \hline
+\multicolumn{3}{r}{\footnotesize\textit{Continued on next page\dots}} \\
+\endfoot
+\hline
+\endlastfoot
+Structural Steel Girder Density & Nominal Unit Weight & 76.4 kN/m\textsuperscript{3} \\ \hline
+Concrete Deck Slab Density & Reinforced Concrete (M35/M40) & 24.5 kN/m\textsuperscript{3} \\ \hline
+Self-Weight Application Factor & Analysis Magnification Factor & 1.0 \\ \hline
 \end{longtable}
 
-\vspace{1em}
-\begin{longtable}{|L{5.5cm}|p{10.0cm}|}
-\caption{\textbf{Dead Load for Surfacing (DW)}}
+\vspace{0.8em}
+\begin{longtable}{|L{6.0cm}|p{6.5cm}|C{2.5cm}|}
+\caption{\textbf{Superimposed Dead Load (SIDL)}} \\
 \hline
-\textbf{parameter} & \textbf{value} \\
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Description} & \textbf{Value / Unit} \\
 \hline
-\textnormal{Wearing Course Load} & Concrete x 50.0 \\[6pt]
+\endfirsthead
+\multicolumn{3}{c}{\small\textit{Table continued from previous page}} \\
 \hline
-\textnormal{Additional SIDL (Crash Barrier)} & 7.56 kN/m per barrier \\[6pt]
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Description} & \textbf{Value / Unit} \\
 \hline
-\textnormal{Railing Load} & 6.806 kN/m\sdstar{} \\[6pt]
+\endhead
 \hline
+\multicolumn{3}{r}{\footnotesize\textit{Continued on next page\dots}} \\
+\endfoot
+\hline
+\endlastfoot
+Wearing Course Material & Concrete & 50.0 mm \\ \hline
+Crash Barrier SIDL & Concrete New Jersey Crash Barrier & 7.56 kN/m per barrier \\ \hline
+Railing / Parapet Load & Edge RCC Railing Load & 6.806 kN/m\sdstar{} \\ \hline
 \end{longtable}
 
-\vspace{1em}
-\begin{longtable}{|L{5.5cm}|p{10.0cm}|}
-\caption{\textbf{Live Loads (LL)}}
+\vspace{1.0em}
+\subsection{Live Loads (LL) --- Vehicular \& Pedestrian}
+
+% --- TABLE 3.3: VEHICLE LIVE LOADS (Clean Distinct Table with Units) ---
+\begin{longtable}{|L{4.2cm}|L{4.8cm}|C{3.2cm}|C{2.8cm}|}
+\caption{\textbf{Vehicular Live Loads (IRC:6-2017)}} \\
 \hline
-\textbf{parameter} & \textbf{value} \\
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Vehicle Class / Description} & \textbf{Design Value} & \textbf{Unit / Standard} \\
 \hline
-\textnormal{Vehicles Considered} & Class A, Class 70R (Wheeled), Class 70R (Tracked), Class AA (Wheeled), Class AA (Tracked), Class SV, Class 70R (Bogie), Class Fatigue \\[6pt]
+\endfirsthead
+\multicolumn{4}{c}{\small\textit{Table continued from previous page}} \\
 \hline
-\textnormal{Impact Factor (IRC 6)} & Class A:\allowbreak{} 1.207, Class AA/70R:\allowbreak{} 1.100 \\[6pt]
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Vehicle Class / Description} & \textbf{Design Value} & \textbf{Unit / Standard} \\
 \hline
-\textnormal{Braking Load (IRC 6)} & N/A \\[6pt]
+\endhead
 \hline
-\textnormal{Footpath Live Load (if applicable)} &  \\[6pt]
+\multicolumn{4}{r}{\footnotesize\textit{Continued on next page\dots}} \\
+\endfoot
 \hline
+\endlastfoot
+Vehicles Considered & Selected Traffic Load Config & Class A, Class 70R (Wheeled), Class 70R (Tracked), Class AA (Wheeled), Class AA (Tracked), Class SV, Class 70R (Bogie), Class Fatigue & IRC:6 Table 2 \\ \hline
+Impact Factor & Dynamic Allowance Factor & Class A:\allowbreak{} 1.207, Class AA/70R:\allowbreak{} 1.100 & IRC:6 Cl 208 \\ \hline
+Braking Load & Longitudinal Braking Force & N/A & IRC:6 Cl 211 \\ \hline
+Centrifugal Force & Lateral Force on Curvature & 0.00 (Straight Align.) & kN (IRC:6 Cl 212) \\ \hline
 \end{longtable}
 
-\vspace{1em}
-\begin{longtable}{|L{5.5cm}|p{10.0cm}|}
-\caption{\textbf{Wind Load (WL) --- per IRC 6}}
+\vspace{1.0em}
+% --- TABLE 3.4: FOOTPATH LIVE LOAD (Separate Table as requested in Scope of Work) ---
+\begin{longtable}{|L{4.5cm}|L{5.0cm}|C{2.8cm}|C{2.7cm}|}
+\caption{\textbf{Pedestrian / Footpath Live Load (IRC:6-2017)}} \\
 \hline
-\textbf{parameter} & \textbf{value} \\
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Specification / Mode} & \textbf{Value} & \textbf{Unit / Clause} \\
 \hline
-\textnormal{Basic Wind Speed, Vb} & 39 m/s [from Project Location] \\[6pt]
+\endfirsthead
+\multicolumn{4}{c}{\small\textit{Table continued from previous page}} \\
 \hline
-\textnormal{Terrain Type} & Plain Terrain \\[6pt]
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Specification / Mode} & \textbf{Value} & \textbf{Unit / Clause} \\
 \hline
-\textnormal{Average Exposed Height, H (m)} & 10 m \\[6pt]
+\endhead
 \hline
-\textnormal{Hourly Mean Wind Speed, Vz} &  \\[6pt]
+\multicolumn{4}{r}{\footnotesize\textit{Continued on next page\dots}} \\
+\endfoot
 \hline
-\textnormal{Hourly Wind Pressure, Pz} &  \\[6pt]
-\hline
-\textnormal{Transverse Wind Force} &  \\[6pt]
-\hline
-\textnormal{Longitudinal Wind Force} &  \\[6pt]
-\hline
-\textnormal{Vertical Wind Force} &  \\[6pt]
-\hline
+\endlastfoot
+Footpath Provision & Pedestrian Footway Setup & None & UI Input \\ \hline
+Footpath Pressure Mode & Pressure Distribution Type & As per IRC 6 & User / Default \\ \hline
+Design Live Pressure & Footpath Crowd Loading Intensity & 4.00 (Default) & kN/m\textsuperscript{2} (IRC:6 Cl 206) \\ \hline
 \end{longtable}
 
-\vspace{1em}
-\begin{longtable}{|L{5.5cm}|p{10.0cm}|}
-\caption{\textbf{Earthquake Load (EL) --- per IRC 6}}
+\vspace{1.0em}
+\subsection{Environmental Loads (Wind, Seismic \& Temperature)}
+
+\begin{longtable}{|L{5.5cm}|p{6.8cm}|C{2.7cm}|}
+\caption{\textbf{Wind Load (WL) --- per IRC:6-2017}} \\
 \hline
-\textbf{parameter} & \textbf{value} \\
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Description} & \textbf{Value / Unit} \\
 \hline
-\textnormal{Seismic Zone} & IV [from Project Location] \\[6pt]
+\endfirsthead
+\multicolumn{3}{c}{\small\textit{Table continued from previous page}} \\
 \hline
-\textnormal{Zone Factor, Z} & 0.24 \\[6pt]
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Description} & \textbf{Value / Unit} \\
 \hline
-\textnormal{Importance Factor, I} & 1.0 \\[6pt]
+\endhead
 \hline
-\textnormal{Type of Soil} & Type I – Rocky or Hard \\[6pt]
+\multicolumn{3}{r}{\footnotesize\textit{Continued on next page\dots}} \\
+\endfoot
 \hline
-\textnormal{Sa/g} & 2.8 \\[6pt]
-\hline
-\textnormal{Horizontal Seismic Coefficient, Ah} & 0.336 \\[6pt]
-\hline
-\textnormal{Vertical Seismic Coefficient, Av} & 0.224 \\[6pt]
-\hline
-\textnormal{Horizontal Seismic Force (longitudinal)} &  kN \\[6pt]
-\hline
-\textnormal{Horizontal Seismic Force (transverse)} &  kN \\[6pt]
-\hline
+\endlastfoot
+Basic Wind Speed, Vb & Regional Wind Zone & 39 m/s \\ \hline
+Terrain Category & Aerodynamic Terrain Exposure & Plain Terrain \\ \hline
+Average Exposed Height & Superstructure Height H & 10 m \\ \hline
+Hourly Mean Wind, Vz & Design Wind Speed at Height H &  \\ \hline
+Hourly Wind Pressure, Pz & Dynamic Transverse Pressure &  \\ \hline
+Transverse Wind Force & Lateral Wind Force per Span &  \\ \hline
+Longitudinal Wind Force & Along-span Wind Component &  \\ \hline
+Vertical Wind Force & Uplift / Downward Wind Action &  \\ \hline
 \end{longtable}
 
-\vspace{1em}
-\begin{longtable}{|L{5.5cm}|p{10.0cm}|}
-\caption{\textbf{Temperature Load (TL) --- per IRC 6}}
+\vspace{0.8em}
+\begin{longtable}{|L{5.5cm}|p{6.8cm}|C{2.7cm}|}
+\caption{\textbf{Earthquake / Seismic Load (EL) --- per IRC:6-2017}} \\
 \hline
-\textbf{parameter} & \textbf{value} \\
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Description} & \textbf{Value / Unit} \\
 \hline
-\textnormal{Maximum Shade Temperature} & 37.6 $^\circ$C \\[6pt]
+\endfirsthead
+\multicolumn{3}{c}{\small\textit{Table continued from previous page}} \\
 \hline
-\textnormal{Minimum Shade Temperature} & -15.7 $^\circ$C \\[6pt]
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Description} & \textbf{Value / Unit} \\
 \hline
-\textnormal{Effective Bridge Temp. Range} & -25.70 to 52.60 $^\circ$C \\[6pt]
+\endhead
 \hline
-\textnormal{Temperature Rise / Fall for Design} & +39.15 $^\circ$C / \textminus{}39.15 $^\circ$C \\[6pt]
+\multicolumn{3}{r}{\footnotesize\textit{Continued on next page\dots}} \\
+\endfoot
 \hline
+\endlastfoot
+Seismic Zone & Geographic Hazard Zone & IV \\ \hline
+Zone Factor (Z) & Peak Ground Acceleration Coeff. & 0.2400 \\ \hline
+Importance Factor (I) & Bridge Criticality Class & 1.0 \\ \hline
+Soil Profile Type & Foundation Soil Classification & Type I – Rocky or Hard \\ \hline
+Spectral Acceleration (Sa/g) & Normalized Elastic Response & 2.8000 \\ \hline
+Horizontal Coeff. (Ah) & Design Base Shear Coefficient & 0.3360 \\ \hline
+Vertical Coeff. (Av) & Vertical Response Coefficient & 0.2240 \\ \hline
 \end{longtable}
 
-\vspace{1em}
-\begin{longtable}{|C{4.0cm}|p{11.5cm}|}
-\caption{\textbf{Load Combinations}}
+\vspace{0.8em}
+\begin{longtable}{|L{5.5cm}|p{6.8cm}|C{2.7cm}|}
+\caption{\textbf{Thermal Actions (TL) --- per IRC:6-2017}} \\
 \hline
-\textbf{Combination ID} & \textbf{Load Cases} \\[6pt]
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Description} & \textbf{Value / Unit} \\
 \hline
-ULS-01 & DL(1.35/1.00) + SIDL(1.75/1.00) + LL(1.50) + WL(0.90) + TL(0.90) \\[6pt]
+\endfirsthead
+\multicolumn{3}{c}{\small\textit{Table continued from previous page}} \\
 \hline
-ULS-02 & DL(1.35/1.00) + SIDL(1.75/1.00) + LL(1.15) + WL(1.50) + TL(0.90) \\[6pt]
+\rowcolor{TableHeadBg}
+\textbf{Parameter} & \textbf{Description} & \textbf{Value / Unit} \\
 \hline
-ULS-03 & DL(1.35/1.00) + SIDL(1.75/1.00) + LL(1.15) + WL(0.90) + TL(1.50) \\[6pt]
+\endhead
 \hline
-ULS-04 & DL(1.00/1.00) + SIDL(1.00/1.00) + LL(0.75) + TL(0.50) + VC(1.00) \\[6pt]
+\multicolumn{3}{r}{\footnotesize\textit{Continued on next page\dots}} \\
+\endfoot
 \hline
-ULS-05 & DL(1.00/1.00) + SIDL(1.00/1.00) + LL(0.75) + TL(0.50) + BI(1.00) \\[6pt]
-\hline
-ULS-06 & DL(1.00/1.00) + SIDL(1.00/1.00) + LL(0.75) + TL(0.50) + FB(1.00) \\[6pt]
-\hline
-ULS-07 & DL(1.35/1.00) + SIDL(1.75/1.00) + LL(0.20) + TL(0.50) + EQ(1.50) \\[6pt]
-\hline
-ULS-08 & DL(1.35/1.00) + SIDL(1.75/1.00) + LL(0.20) + TL(0.50) + EQ(0.75) \\[6pt]
-\hline
-SLS-01 & DL(1.00) + SIDL(1.20/1.00) + LL(1.00) + WL(0.60) + TL(0.60) \\[6pt]
-\hline
-SLS-02 & DL(1.00) + SIDL(1.20/1.00) + LL(0.75) + WL(1.00) + TL(0.60) \\[6pt]
-\hline
-SLS-03 & DL(1.00) + SIDL(1.20/1.00) + LL(0.75) + WL(0.60) + TL(1.00) \\[6pt]
-\hline
-SLS-04 & DL(1.00) + SIDL(1.20/1.00) + LL(0.75) + WL(0.50) + TL(0.50) \\[6pt]
-\hline
-SLS-05 & DL(1.00) + SIDL(1.20/1.00) + LL(0.20) + WL(0.60) + TL(0.50) \\[6pt]
-\hline
-SLS-06 & DL(1.00) + SIDL(1.20/1.00) + LL(0.20) + WL(0.50) + TL(0.60) \\[6pt]
-\hline
-SLS-07 & DL(1.00) + SIDL(1.20/1.00) + LL(0.00) + WL(0.00) + TL(0.50) \\[6pt]
-\hline
+\endlastfoot
+Maximum Shade Temperature & Regional Peak Air Temp & 37.6 $^\circ$C \\ \hline
+Minimum Shade Temperature & Regional Lowest Air Temp & -15.7 $^\circ$C \\ \hline
+Effective Bridge Temp. Range & Bridge Operating Range & -25.70 to 52.60 $^\circ$C \\ \hline
+Temperature Rise for Design & Positive Thermal Expansion & 39.15 $^\circ$C \\ \hline
+Temperature Fall for Design & Negative Thermal Contraction & 39.15 $^\circ$C \\ \hline
 \end{longtable}
 
-\noindent\textit{Note: All IRC 6 load combinations are auto-generated by OsdagBridge. User-defined custom combinations, if any, are appended.}
+\vspace{1.0em}
+\subsection{Design Load Combinations (ULS \& SLS)}
+
+% --- MULTI-PAGE LOAD COMBINATIONS TABLE WITH AUTOMATIC REPEATED HEADERS ---
+\begin{longtable}{|C{3.0cm}|p{12.0cm}|}
+\caption{\textbf{Design Load Combinations (IRC:6 Table B.1 -- B.4)}} \\
+\hline
+\rowcolor{TableHeadBg}
+\textbf{Combination ID} & \textbf{Factored Load Cases (ULS / SLS)} \\
+\hline
+\endfirsthead
+\multicolumn{2}{c}{\small\textit{Table continued from previous page}} \\
+\hline
+\rowcolor{TableHeadBg}
+\textbf{Combination ID} & \textbf{Factored Load Cases (ULS / SLS)} \\
+\hline
+\endhead
+\hline
+\multicolumn{2}{r}{\footnotesize\textit{Continued on next page\dots}} \\
+\endfoot
+\hline
+\endlastfoot
+\textbf{ULS-01} & DL(1.35/1.00) + SIDL(1.75/1.00) + LL(1.50) + WL(0.90) + TL(0.90) \\[4pt] \hline
+\textbf{ULS-02} & DL(1.35/1.00) + SIDL(1.75/1.00) + LL(1.15) + WL(1.50) + TL(0.90) \\[4pt] \hline
+\textbf{ULS-03} & DL(1.35/1.00) + SIDL(1.75/1.00) + LL(1.15) + WL(0.90) + TL(1.50) \\[4pt] \hline
+\textbf{ULS-04} & DL(1.00/1.00) + SIDL(1.00/1.00) + LL(0.75) + TL(0.50) + VC(1.00) \\[4pt] \hline
+\textbf{ULS-05} & DL(1.00/1.00) + SIDL(1.00/1.00) + LL(0.75) + TL(0.50) + BI(1.00) \\[4pt] \hline
+\textbf{ULS-06} & DL(1.00/1.00) + SIDL(1.00/1.00) + LL(0.75) + TL(0.50) + FB(1.00) \\[4pt] \hline
+\textbf{ULS-07} & DL(1.35/1.00) + SIDL(1.75/1.00) + LL(0.20) + TL(0.50) + EQ(1.50) \\[4pt] \hline
+\textbf{ULS-08} & DL(1.35/1.00) + SIDL(1.75/1.00) + LL(0.20) + TL(0.50) + EQ(0.75) \\[4pt] \hline
+\textbf{SLS-01} & DL(1.00) + SIDL(1.20/1.00) + LL(1.00) + WL(0.60) + TL(0.60) \\[4pt] \hline
+\textbf{SLS-02} & DL(1.00) + SIDL(1.20/1.00) + LL(0.75) + WL(1.00) + TL(0.60) \\[4pt] \hline
+\textbf{SLS-03} & DL(1.00) + SIDL(1.20/1.00) + LL(0.75) + WL(0.60) + TL(1.00) \\[4pt] \hline
+\textbf{SLS-04} & DL(1.00) + SIDL(1.20/1.00) + LL(0.75) + WL(0.50) + TL(0.50) \\[4pt] \hline
+\textbf{SLS-05} & DL(1.00) + SIDL(1.20/1.00) + LL(0.20) + WL(0.60) + TL(0.50) \\[4pt] \hline
+\textbf{SLS-06} & DL(1.00) + SIDL(1.20/1.00) + LL(0.20) + WL(0.50) + TL(0.60) \\[4pt] \hline
+\textbf{SLS-07} & DL(1.00) + SIDL(1.20/1.00) + LL(0.00) + WL(0.00) + TL(0.50) \\[4pt] \hline
+\end{longtable}
+
+\noindent\textit{\footnotesize Note: All load combinations are auto-generated in strict compliance with IRC:6-2017 (Limit State Design), covering Ultimate Limit State (ULS) and Serviceability Limit State (SLS).}
 
 
 \chapter{Analysis Results}
@@ -843,95 +943,95 @@ A grillage model was used for structural analysis. The deck is idealized as a gr
 \hline
 \endhead
 
-1.0 DL + 1.0 LL & 2027.623 & G2 & 13.500 & 346.111 & G1 & 0.000 & -1192.027 & 925.214 \\[6pt]
-\hline
-1.0 DW & 199.547 & G1 & 15.000 & 33.869 & G1 & 0.000 & -116.853 & 116.853 \\[6pt]
-\hline
-Crash barrier load & 162.535 & G2 & 15.000 & 28.678 & G1 & 28.500 & -87.634 & 92.345 \\[6pt]
-\hline
-SEISMIC\_\allowbreak{}4:\allowbreak{} 1.0DL + 1.0DW + 0.2LL + 0.75EL & 1914.897 & G2 & 13.500 & 327.691 & G1 & 0.000 & -1127.264 & 860.452 \\[6pt]
-\hline
-SLS\_\allowbreak{}FREQUENT\_\allowbreak{}3:\allowbreak{} 1.0DL + 1.2DW + 0.2LL + 0.5WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
-WL Transverse & 0.000 & — & --- & 0.000 & — & --- & -0.000 & -0.000 \\[6pt]
-\hline
-SLS\_\allowbreak{}RARE\_\allowbreak{}6:\allowbreak{} 1.0DL + 1.0DW + 0.75LL + 0.6WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
-EQ\_\allowbreak{}X & 0.000 & — & --- & 0.000 & — & --- & 0.000 & 0.000 \\[6pt]
-\hline
-1.5 EQ (b) & 141.094 & G1 & 15.000 & 23.530 & G1 & 0.000 & 81.727 & -81.727 \\[6pt]
-\hline
-1.0 WL & 110.762 & G1 & 15.000 & 18.472 & G1 & 28.500 & 64.158 & -64.158 \\[6pt]
-\hline
-ACCIDENTAL\_\allowbreak{}1:\allowbreak{} 1.0DL + 1.0DW + 0.75LL & 2224.950 & G2 & 13.500 & 379.980 & G1 & 0.000 & -1308.880 & 1042.068 \\[6pt]
-\hline
-SLS\_\allowbreak{}RARE\_\allowbreak{}2:\allowbreak{} 1.0DL + 1.2DW + 0.75LL + 1.0WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
-SLS\_\allowbreak{}RARE\_\allowbreak{}4:\allowbreak{} 1.0DL + 1.0DW + 1.0LL + 0.6WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
-DD & 997.735 & G1 & 15.000 & 169.345 & G1 & 28.500 & -584.266 & 584.266 \\[6pt]
-\hline
-SLS\_\allowbreak{}FREQUENT\_\allowbreak{}2:\allowbreak{} 1.0DL + 1.2DW + 0.2LL + 0.6WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
-SLS\_\allowbreak{}RARE\_\allowbreak{}5:\allowbreak{} 1.0DL + 1.0DW + 0.75LL + 1.0WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
-SLS\_\allowbreak{}FREQUENT\_\allowbreak{}4:\allowbreak{} 1.0DL + 1.0DW + 0.75LL + 0.5WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
-1.5 EQ (a) & 141.094 & G1 & 15.000 & 23.530 & G1 & 0.000 & 81.727 & -81.727 \\[6pt]
-\hline
-SW & 205.417 & G1 & 15.000 & 34.072 & G1 & 28.500 & -119.141 & 119.141 \\[6pt]
-\hline
-1.0 DL & 1203.152 & G1 & 15.000 & 203.417 & G1 & 28.500 & -703.407 & 703.407 \\[6pt]
-\hline
-1.5 EQ (c) & 470.313 & G1 & 15.000 & 78.435 & G1 & 28.500 & 272.424 & -272.424 \\[6pt]
-\hline
-ACCIDENTAL\_\allowbreak{}3:\allowbreak{} 1.0DL + 1.0DW + 0.75LL & 2224.950 & G2 & 13.500 & 379.980 & G1 & 0.000 & -1308.880 & 1042.068 \\[6pt]
-\hline
-BASIC\_\allowbreak{}1:\allowbreak{} 1.35DL + 1.75DW + 1.5LL + 0.9WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
 Envelope ULS & 2224.950 & G2 & 13.500 & 379.980 & G1 & 0.000 & -1308.880 & 1042.068 \\[6pt]
-\hline
-EQ\_\allowbreak{}Y & 313.542 & G1 & 15.000 & 52.290 & G1 & 28.500 & 181.616 & -181.616 \\[6pt]
-\hline
-SLS\_\allowbreak{}FREQUENT\_\allowbreak{}1:\allowbreak{} 1.0DL + 1.2DW + 0.75LL + 0.5WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
-BASIC\_\allowbreak{}5:\allowbreak{} 1.0DL + 1.0DW + 1.15LL + 1.5WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
-SEISMIC\_\allowbreak{}3:\allowbreak{} 1.0DL + 1.0DW + 0.2LL + 1.5EL & 1914.897 & G2 & 13.500 & 327.691 & G1 & 0.000 & -1127.264 & 860.452 \\[6pt]
-\hline
-SLS\_\allowbreak{}RARE\_\allowbreak{}3:\allowbreak{} 1.0DL + 1.2DW + 0.75LL + 0.6WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
-BASIC\_\allowbreak{}6:\allowbreak{} 1.0DL + 1.0DW + 1.15LL + 0.9WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
-WL Longitudinal & 0.000 & — & --- & 0.000 & — & --- & -0.000 & 0.000 \\[6pt]
-\hline
-WL Uplift & 110.762 & G1 & 15.000 & 18.472 & G1 & 28.500 & 64.158 & -64.158 \\[6pt]
-\hline
-SEISMIC\_\allowbreak{}1:\allowbreak{} 1.35DL + 1.75DW + 0.2LL + 1.5EL & 1914.897 & G2 & 13.500 & 327.691 & G1 & 0.000 & -1127.264 & 860.452 \\[6pt]
-\hline
-SLS\_\allowbreak{}FREQUENT\_\allowbreak{}5:\allowbreak{} 1.0DL + 1.0DW + 0.2LL + 0.6WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
-SEISMIC\_\allowbreak{}2:\allowbreak{} 1.35DL + 1.75DW + 0.2LL + 0.75EL & 1914.897 & G2 & 13.500 & 327.691 & G1 & 0.000 & -1127.264 & 860.452 \\[6pt]
-\hline
-Envelope SLS & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
-\hline
-EQ\_\allowbreak{}Z & 0.000 & — & --- & 0.000 & — & --- & 0.000 & -0.000 \\[6pt]
-\hline
-ACCIDENTAL\_\allowbreak{}2:\allowbreak{} 1.0DL + 1.0DW + 0.75LL & 2224.950 & G2 & 13.500 & 379.980 & G1 & 0.000 & -1308.880 & 1042.068 \\[6pt]
-\hline
-SLS\_\allowbreak{}QP\_\allowbreak{}2:\allowbreak{} 1.0DL + 1.0DW & 1402.699 & G1 & 15.000 & 237.286 & G1 & 0.000 & -820.260 & 820.260 \\[6pt]
-\hline
-SLS\_\allowbreak{}FREQUENT\_\allowbreak{}6:\allowbreak{} 1.0DL + 1.0DW + 0.2LL + 0.5WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
 \hline
 SLS\_\allowbreak{}QP\_\allowbreak{}1:\allowbreak{} 1.0DL + 1.2DW & 1402.699 & G1 & 15.000 & 237.286 & G1 & 0.000 & -820.260 & 820.260 \\[6pt]
 \hline
+1.0 DL & 1203.152 & G1 & 15.000 & 203.417 & G1 & 28.500 & -703.407 & 703.407 \\[6pt]
+\hline
+SLS\_\allowbreak{}RARE\_\allowbreak{}5:\allowbreak{} 1.0DL + 1.0DW + 0.75LL + 1.0WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+SLS\_\allowbreak{}QP\_\allowbreak{}2:\allowbreak{} 1.0DL + 1.0DW & 1402.699 & G1 & 15.000 & 237.286 & G1 & 0.000 & -820.260 & 820.260 \\[6pt]
+\hline
+BASIC\_\allowbreak{}1:\allowbreak{} 1.35DL + 1.75DW + 1.5LL + 0.9WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
 BASIC\_\allowbreak{}2:\allowbreak{} 1.35DL + 1.75DW + 1.15LL + 1.5WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+EQ\_\allowbreak{}Z & 0.000 & — & --- & 0.000 & — & --- & 0.000 & -0.000 \\[6pt]
+\hline
+1.0 WL & 110.762 & G1 & 15.000 & 18.472 & G1 & 28.500 & 64.158 & -64.158 \\[6pt]
+\hline
+SEISMIC\_\allowbreak{}2:\allowbreak{} 1.35DL + 1.75DW + 0.2LL + 0.75EL & 1914.897 & G2 & 13.500 & 327.691 & G1 & 0.000 & -1127.264 & 860.452 \\[6pt]
+\hline
+SLS\_\allowbreak{}FREQUENT\_\allowbreak{}6:\allowbreak{} 1.0DL + 1.0DW + 0.2LL + 0.5WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+SLS\_\allowbreak{}RARE\_\allowbreak{}3:\allowbreak{} 1.0DL + 1.2DW + 0.75LL + 0.6WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+SEISMIC\_\allowbreak{}4:\allowbreak{} 1.0DL + 1.0DW + 0.2LL + 0.75EL & 1914.897 & G2 & 13.500 & 327.691 & G1 & 0.000 & -1127.264 & 860.452 \\[6pt]
+\hline
+SEISMIC\_\allowbreak{}1:\allowbreak{} 1.35DL + 1.75DW + 0.2LL + 1.5EL & 1914.897 & G2 & 13.500 & 327.691 & G1 & 0.000 & -1127.264 & 860.452 \\[6pt]
 \hline
 BASIC\_\allowbreak{}4:\allowbreak{} 1.0DL + 1.0DW + 1.5LL + 0.9WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
 \hline
-BASIC\_\allowbreak{}3:\allowbreak{} 1.35DL + 1.75DW + 1.15LL + 0.9WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+EQ\_\allowbreak{}Y & 313.542 & G1 & 15.000 & 52.290 & G1 & 28.500 & 181.616 & -181.616 \\[6pt]
+\hline
+1.5 EQ (c) & 470.313 & G1 & 15.000 & 78.435 & G1 & 28.500 & 272.424 & -272.424 \\[6pt]
+\hline
+ACCIDENTAL\_\allowbreak{}2:\allowbreak{} 1.0DL + 1.0DW + 0.75LL & 2224.950 & G2 & 13.500 & 379.980 & G1 & 0.000 & -1308.880 & 1042.068 \\[6pt]
+\hline
+SLS\_\allowbreak{}RARE\_\allowbreak{}4:\allowbreak{} 1.0DL + 1.0DW + 1.0LL + 0.6WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+WL Uplift & 110.762 & G1 & 15.000 & 18.472 & G1 & 28.500 & 64.158 & -64.158 \\[6pt]
+\hline
+ACCIDENTAL\_\allowbreak{}3:\allowbreak{} 1.0DL + 1.0DW + 0.75LL & 2224.950 & G2 & 13.500 & 379.980 & G1 & 0.000 & -1308.880 & 1042.068 \\[6pt]
+\hline
+SLS\_\allowbreak{}RARE\_\allowbreak{}6:\allowbreak{} 1.0DL + 1.0DW + 0.75LL + 0.6WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+BASIC\_\allowbreak{}6:\allowbreak{} 1.0DL + 1.0DW + 1.15LL + 0.9WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+SLS\_\allowbreak{}FREQUENT\_\allowbreak{}4:\allowbreak{} 1.0DL + 1.0DW + 0.75LL + 0.5WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+SLS\_\allowbreak{}FREQUENT\_\allowbreak{}1:\allowbreak{} 1.0DL + 1.2DW + 0.75LL + 0.5WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+SEISMIC\_\allowbreak{}3:\allowbreak{} 1.0DL + 1.0DW + 0.2LL + 1.5EL & 1914.897 & G2 & 13.500 & 327.691 & G1 & 0.000 & -1127.264 & 860.452 \\[6pt]
 \hline
 SLS\_\allowbreak{}RARE\_\allowbreak{}1:\allowbreak{} 1.0DL + 1.2DW + 1.0LL + 0.6WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+Envelope SLS & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+1.0 DW & 199.547 & G1 & 15.000 & 33.869 & G1 & 0.000 & -116.853 & 116.853 \\[6pt]
+\hline
+SW & 205.417 & G1 & 15.000 & 34.072 & G1 & 28.500 & -119.141 & 119.141 \\[6pt]
+\hline
+BASIC\_\allowbreak{}3:\allowbreak{} 1.35DL + 1.75DW + 1.15LL + 0.9WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+WL Transverse & 0.000 & — & --- & 0.000 & — & --- & -0.000 & -0.000 \\[6pt]
+\hline
+WL Longitudinal & 0.000 & — & --- & 0.000 & — & --- & -0.000 & 0.000 \\[6pt]
+\hline
+DD & 997.735 & G1 & 15.000 & 169.345 & G1 & 28.500 & -584.266 & 584.266 \\[6pt]
+\hline
+Crash barrier load & 162.535 & G2 & 15.000 & 28.678 & G1 & 28.500 & -87.634 & 92.345 \\[6pt]
+\hline
+SLS\_\allowbreak{}RARE\_\allowbreak{}2:\allowbreak{} 1.0DL + 1.2DW + 0.75LL + 1.0WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+1.0 DL + 1.0 LL & 2027.623 & G2 & 13.500 & 346.111 & G1 & 0.000 & -1192.027 & 925.214 \\[6pt]
+\hline
+SLS\_\allowbreak{}FREQUENT\_\allowbreak{}5:\allowbreak{} 1.0DL + 1.0DW + 0.2LL + 0.6WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+ACCIDENTAL\_\allowbreak{}1:\allowbreak{} 1.0DL + 1.0DW + 0.75LL & 2224.950 & G2 & 13.500 & 379.980 & G1 & 0.000 & -1308.880 & 1042.068 \\[6pt]
+\hline
+SLS\_\allowbreak{}FREQUENT\_\allowbreak{}2:\allowbreak{} 1.0DL + 1.2DW + 0.2LL + 0.6WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+EQ\_\allowbreak{}X & 0.000 & — & --- & 0.000 & — & --- & 0.000 & 0.000 \\[6pt]
+\hline
+SLS\_\allowbreak{}FREQUENT\_\allowbreak{}3:\allowbreak{} 1.0DL + 1.2DW + 0.2LL + 0.5WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
+\hline
+1.5 EQ (a) & 141.094 & G1 & 15.000 & 23.530 & G1 & 0.000 & 81.727 & -81.727 \\[6pt]
+\hline
+1.5 EQ (b) & 141.094 & G1 & 15.000 & 23.530 & G1 & 0.000 & 81.727 & -81.727 \\[6pt]
+\hline
+BASIC\_\allowbreak{}5:\allowbreak{} 1.0DL + 1.0DW + 1.15LL + 1.5WL & 2115.421 & G2 & 13.500 & 361.509 & G1 & 0.000 & -1244.723 & 977.910 \\[6pt]
 
 \hline
 \end{longtable}
@@ -976,7 +1076,7 @@ SLS\_\allowbreak{}RARE\_\allowbreak{}1:\allowbreak{} 1.0DL + 1.2DW + 1.0LL + 0.6
 \begin{figure}[H]
 \vspace{-0.5em}
 \centering
-\includegraphics[width=0.75\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/bm_envelope.png}
+\includegraphics[width=0.75\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/bm_envelope.png}
 \vspace{0.5em}
 \caption*{\small Bending Moment Envelope (Envelope ULS): Max/min BM along span. X-axis: distance from left support (m). Y-axis: Bending Moment (kN-m).}
 \vspace{-0.5em}
@@ -984,7 +1084,7 @@ SLS\_\allowbreak{}RARE\_\allowbreak{}1:\allowbreak{} 1.0DL + 1.2DW + 1.0LL + 0.6
 \begin{figure}[H]
 \vspace{-0.5em}
 \centering
-\includegraphics[width=0.75\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/sf_envelope.png}
+\includegraphics[width=0.75\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/sf_envelope.png}
 \vspace{0.5em}
 \caption*{\small Shear Force Envelope (Envelope ULS): Max/min SF along span. X-axis: distance from left support (m). Y-axis: Shear Force (kN).}
 \vspace{-0.5em}
@@ -992,7 +1092,7 @@ SLS\_\allowbreak{}RARE\_\allowbreak{}1:\allowbreak{} 1.0DL + 1.2DW + 1.0LL + 0.6
 \begin{figure}[H]
 \vspace{-0.5em}
 \centering
-\includegraphics[width=0.75\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/defl_ll.png}
+\includegraphics[width=0.75\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/defl_ll.png}
 \vspace{0.5em}
 \caption*{\small Vertical Deflection D$_y$ (1.0 LL): Maximum deflection along span. Load Case: 1.0 LL, Combination: $D_y$. Nodes shown. Isometric view.}
 \vspace{-0.5em}
@@ -1909,10 +2009,23 @@ End diaphragms at the supports transfer transverse loads to the bearings, restra
 
 \vspace{1em}
 \begin{longtable}{|C{3.4cm}|L{4.5cm}|C{2.3cm}|C{2.3cm}|>{\centering\arraybackslash}p{1.6cm}|}
-\caption{\textbf{Overall Design Check Summary --- All Members}}
+\caption{\textbf{Overall Design Check Summary --- All Members}} \\
 \hline
+\rowcolor{TableHeadBg}
 \textbf{Member / Check} & \textbf{Governing Load Combo} & \textbf{Demand} & \textbf{Capacity} & \textbf{UR} \\[6pt]
 \hline
+\endfirsthead
+\multicolumn{5}{c}{\small\textit{Table continued from previous page}} \\
+\hline
+\rowcolor{TableHeadBg}
+\textbf{Member / Check} & \textbf{Governing Load Combo} & \textbf{Demand} & \textbf{Capacity} & \textbf{UR} \\[6pt]
+\hline
+\endhead
+\hline
+\multicolumn{5}{r}{\footnotesize\textit{Continued on next page\dots}} \\
+\endfoot
+\hline
+\endlastfoot
 Girder --- Moment & ACCIDENTAL\_\allowbreak{}1:\allowbreak{} 1.0DL + 1.0DW + 0.75LL & 2224.95 kNm & 11371.85 kNm & 0.20 \\[6pt]
 \hline
 Girder --- Shear & ACCIDENTAL\_\allowbreak{}1:\allowbreak{} 1.0DL + 1.0DW + 0.75LL & 379.98 kN & 720.21 kN & 0.53 \\[6pt]
@@ -1950,7 +2063,9 @@ End Diaphragm --- Moment & 1.5 EQ (b) & 20.37 kN & 22.140 kN & 0.92 \\[6pt]
 End Diaphragm --- Shear & 1.5 EQ (b) & 14.40 kN & 45.000 kN & 0.32 \\[6pt]
 \hline
 \end{longtable}
-\noindent\textit{Note: UR = Demand / Capacity. All values $\leq 1.0$ indicate passing checks. The governing check for each component is highlighted in the individual design check sections above.}
+\noindent\textit{Note: UR = Demand / Capacity. All values $\leq 1.0$ indicate passing checks.}
+
+
 
 
 
@@ -1965,7 +2080,7 @@ This section presents CAD-generated views of the designed bridge and its compone
 \begin{figure}[H]
 \centering
 \vspace{4pt}
-\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/final_geometry.png}
+\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/final_geometry.png}
 \caption{Overall 3D Bridge Superstructure}
 \label{fig:bridge-3d}
 \end{figure}
@@ -1974,7 +2089,7 @@ This section presents CAD-generated views of the designed bridge and its compone
 \begin{figure}[H]
 \centering
 \vspace{4pt}
-\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/cross_section.png}
+\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/cross_section.png}
 \caption{Typical Cross Section}
 \label{fig:cross-section}
 \end{figure}
@@ -1983,7 +2098,7 @@ This section presents CAD-generated views of the designed bridge and its compone
 \begin{figure}[H]
 \centering
 \vspace{4pt}
-\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/girder_top.png}
+\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/girder_top.png}
 \caption{Top View}
 \label{fig:top-view}
 \end{figure}
@@ -1995,7 +2110,7 @@ This section presents CAD-generated views of the designed bridge and its compone
 \begin{figure}[H]
 \centering
 \vspace{4pt}
-\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/girder_3d.png}
+\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/girder_3d.png}
 \caption{3D View of Plate Girders}
 \label{fig:girder-3d}
 \end{figure}
@@ -2004,7 +2119,7 @@ This section presents CAD-generated views of the designed bridge and its compone
 \begin{figure}[H]
 \centering
 \vspace{4pt}
-\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/section_preview.png}
+\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/section_preview.png}
 \caption{Cross Section of Plate Girder}
 \label{fig:girder-xsec}
 \end{figure}
@@ -2013,7 +2128,7 @@ This section presents CAD-generated views of the designed bridge and its compone
 \begin{figure}[H]
 \centering
 \vspace{4pt}
-\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/stiffener_preview.png}
+\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/stiffener_preview.png}
 \caption{Side View of Girder}
 \label{fig:girder-side}
 \end{figure}
@@ -2025,7 +2140,7 @@ This section presents CAD-generated views of the designed bridge and its compone
 \begin{figure}[H]
 \centering
 \vspace{4pt}
-\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/cb_diagram.png}
+\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/cb_diagram.png}
 \caption{Cross Bracing Layout}
 \label{fig:cb-layout}
 \end{figure}
@@ -2034,21 +2149,21 @@ This section presents CAD-generated views of the designed bridge and its compone
 \noindent
 \begin{minipage}[t]{0.31\textwidth}
 \centering
-\includegraphics[width=\linewidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/cb_bracing.png}
+\includegraphics[width=\linewidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/cb_bracing.png}
 \captionof{figure}{Cross Bracing -- Bracing Section}
 \label{fig:cb-bracing-sec}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.31\textwidth}
 \centering
-\includegraphics[width=\linewidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/cb_top_chord.png}
+\includegraphics[width=\linewidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/cb_top_chord.png}
 \captionof{figure}{Cross Bracing -- Top Chord Section}
 \label{fig:cb-top-chord}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.31\textwidth}
 \centering
-\includegraphics[width=\linewidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/cb_bottom_chord.png}
+\includegraphics[width=\linewidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/cb_bottom_chord.png}
 \captionof{figure}{Cross Bracing -- Bottom Chord Section}
 \label{fig:cb-bottom-chord}
 \end{minipage}
@@ -2060,7 +2175,7 @@ This section presents CAD-generated views of the designed bridge and its compone
 \begin{figure}[H]
 \centering
 \vspace{4pt}
-\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/ed_diagram.png}
+\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/ed_diagram.png}
 \caption{End Diaphragm Layout}
 \label{fig:ed-layout}
 \end{figure}
@@ -2069,21 +2184,21 @@ This section presents CAD-generated views of the designed bridge and its compone
 \noindent
 \begin{minipage}[t]{0.31\textwidth}
 \centering
-\includegraphics[width=\linewidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/ed_bracing.png}
+\includegraphics[width=\linewidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/ed_bracing.png}
 \captionof{figure}{End Diaphragm -- Bracing Section}
 \label{fig:ed-bracing-sec}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.31\textwidth}
 \centering
-\includegraphics[width=\linewidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/ed_top_chord.png}
+\includegraphics[width=\linewidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/ed_top_chord.png}
 \captionof{figure}{End Diaphragm -- Top Chord Section}
 \label{fig:ed-top-chord}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.31\textwidth}
 \centering
-\includegraphics[width=\linewidth]{C:/Users/salma/AppData/Local/Temp/tmpi95258mr/images/ed_bottom_chord.png}
+\includegraphics[width=\linewidth]{C:/Users/salma/AppData/Local/Temp/tmpzxkutipl/images/ed_bottom_chord.png}
 \captionof{figure}{End Diaphragm -- Bottom Chord Section}
 \label{fig:ed-bottom-chord}
 \end{minipage}
@@ -2093,31 +2208,61 @@ This section presents CAD-generated views of the designed bridge and its compone
 \chapter{Material Take-off \& Quantity Summary}
 \label{ch:material-takeoff}
 
-\noindent\textbf{Table 7.1  Bill of Materials (Steel, Concrete, and Reinforcement Quantities)}
+This section summarizes the material quantities, total volumes, and weights calculated for the structural components of the steel girder bridge.
+
+\vspace{0.8em}
+\subsection{Bill of Materials (BOM)}
 
 \begingroup
 \setlength{\tabcolsep}{3.5pt}
-\begin{longtable}{|C{1.0cm}|L{3.8cm}|C{2.6cm}|C{1.8cm}|C{1.8cm}|C{1.8cm}|C{1.8cm}|}
+\begin{longtable}{|C{1.0cm}|L{4.2cm}|C{2.4cm}|C{1.6cm}|C{2.0cm}|C{1.8cm}|C{1.8cm}|}
+\caption{\textbf{Bill of Materials --- Steel, Concrete, and Reinforcement Quantities}} \\
 \hline
-\textbf{S.N.} & \textbf{Item Description} & \textbf{Volume} & \textbf{Quantity} & \textbf{Total Volume} & \textbf{Weight (MT)} & \textbf{Total Weight (MT)} \\
+\rowcolor{TableHeadBg}
+\textbf{S.N.} & \textbf{Item Description} & \textbf{Formula} & \textbf{Qty} & \textbf{Total Vol.} & \textbf{Unit Wt (MT)} & \textbf{Total Wt (MT)} \\
 \hline
-1 & Structural Steel (IS 2062) for Girders & $0.03492\text{ m}^2 \times 30.00\text{ m} = 1.04756\text{ m}^3$ & 4 & 4.19 & 8.22 & 32.89 \\
+\endfirsthead
+\multicolumn{7}{c}{\small\textit{Table continued from previous page}} \\
 \hline
-2(a) & Cross Bracing - Top Chord & $0.00024\text{ m}^2 \times 2.10\text{ m} = 0.00050\text{ m}^3$ & 27 & 0.01 & 0.0039 & 0.11 \\
+\rowcolor{TableHeadBg}
+\textbf{S.N.} & \textbf{Item Description} & \textbf{Formula} & \textbf{Qty} & \textbf{Total Vol.} & \textbf{Unit Wt (MT)} & \textbf{Total Wt (MT)} \\
 \hline
-2(b) & Cross Bracing - Bottom Chord & $0.00024\text{ m}^2 \times 2.10\text{ m} = 0.00050\text{ m}^3$ & 27 & 0.01 & 0.0039 & 0.11 \\
+\endhead
 \hline
-2(c) & Cross Bracing - Diagonal Chord & $0.00024\text{ m}^2 \times 2.53\text{ m} = 0.00060\text{ m}^3$ & 54 & 0.03 & 0.0047 & 0.25 \\
+\multicolumn{7}{r}{\footnotesize\textit{Continued on next page\dots}} \\
+\endfoot
 \hline
-3 & Concrete (M40) for Deck Slab & $8.40\text{ m} \times 0.25\text{ m} \times 30.00\text{ m} = 63.00\text{ m}^3$ & 1 & 63.00 & 157.50 & 157.50 \\
-\hline
-4 & Reinforcement Steel (Fe 500) & $0.032102\text{ m}^2 \times 30.00\text{ m} = 0.96306\text{ m}^3$ & 1 & 0.96 & 7.56 & 7.56 \\
-\hline
-5 & Shear Stud Connectors & $0.000314\text{ m}^2 \times 0.100\text{ m} = 0.000031\text{ m}^3$ & 640 & 0.02 & 0.000247 & 0.158 \\
-\hline
-6 & Crash Barrier & $0.00000\text{ m}^2 \times 30.00\text{ m} = 0.00001\text{ m}^3$ & 2 & 0.00 & 0.00 & 0.00 \\
-\hline
+\endlastfoot
+1 & Structural Steel (IS 2062) for Girders & $0.03492\text{ m}^2 \times 30.00\text{ m} = 1.04756\text{ m}^3$ & 4 & 4.19 & 8.22 & 32.89 \\ \hline
+2(a) & Cross Bracing --- Top Chord & $0.00024\text{ m}^2 \times 2.10\text{ m} = 0.00050\text{ m}^3$ & 27 & 0.01 & 0.0039 & 0.11 \\ \hline
+2(b) & Cross Bracing --- Bottom Chord & $0.00024\text{ m}^2 \times 2.10\text{ m} = 0.00050\text{ m}^3$ & 27 & 0.01 & 0.0039 & 0.11 \\ \hline
+2(c) & Cross Bracing --- Diagonal Chord & $0.00024\text{ m}^2 \times 2.53\text{ m} = 0.00060\text{ m}^3$ & 54 & 0.03 & 0.0047 & 0.25 \\ \hline
+3 & Concrete (M40) for Deck Slab & $8.40\text{ m} \times 0.25\text{ m} \times 30.00\text{ m} = 63.00\text{ m}^3$ & 1 & 63.00 & 157.50 & 157.50 \\ \hline
+4 & Reinforcement Steel (Fe 500) & $0.032102\text{ m}^2 \times 30.00\text{ m} = 0.96306\text{ m}^3$ & 1 & 0.96 & 7.56 & 7.56 \\ \hline
+5 & Shear Stud Connectors & $0.000314\text{ m}^2 \times 0.100\text{ m} = 0.000031\text{ m}^3$ & 640 & 0.02 & 0.000247 & 0.158 \\ \hline
+6 & Crash Barrier & $0.00000\text{ m}^2 \times 30.00\text{ m} = 0.00001\text{ m}^3$ & 2 & 0.00 & 0.00 & 0.00 \\ \hline
 \end{longtable}
+\endgroup
+
+
+\vspace{1.0em}
+\subsection{Material Quantity Visualizations}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{C:/Users/salma/AppData/Local/Temp/osdag_steel_tonnage_chart.png}
+\caption{\textbf{Structural Steel Tonnage Distribution (Girders, Bracing, End Diaphragms)}}
+\label{fig:steel_tonnage}
+\end{figure}
+
+\vspace{1.0em}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth]{C:/Users/salma/AppData/Local/Temp/osdag_concrete_rebar_chart.png}
+\caption{\textbf{Concrete Volume (m\textsuperscript{3}) and Reinforcement Steel Weight (MT) Summary}}
+\label{fig:concrete_rebar}
+\end{figure}
+
 
 
 \chapter{Standards \& Assumptions}
